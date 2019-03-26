@@ -16,7 +16,9 @@
   "require": {
     "php": ">=5.6.0",
     "aws/aws-sdk-php": "<3.70",
-    "elasticsearch/elasticsearch": "<5.4"
+    "elasticsearch/elasticsearch": "<5.4",
+    "ext-couchbase": "*",
+    "ext-mongo": "*"
   },
   "autoload": {
     "psr-4": {

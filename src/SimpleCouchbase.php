@@ -2,21 +2,34 @@
 
 namespace Picnic;
 
+use Couchbase\Bucket;
+use Couchbase\PasswordAuthenticator;
 use CouchbaseN1qlQuery;
 use CouchbaseException;
 use ElasticSearch\Exception;
 
 class SimpleCouchbase {
 
+    /** @var \CouchbaseCluster  */
     public $cluster;
+
+    /** @var Bucket */
     public $bucket;
 
     public function __construct($params)
     {
-        $this->cluster = new \CouchbaseCluster("couchbase://".$params['host']."?operation_timeout=5");
+        $this->cluster = new \CouchbaseCluster(
+            sprintf(
+                "couchbase://%s?operation_timeout=5",
+                $params['host']
+            )
+        );
 
         if ($params['bucket']) {
             $this->bucket = $params['bucket'];
+            $authenticator = new PasswordAuthenticator();
+            $authenticator->username($this->bucket)->password($params['pass']);
+            $this->cluster->authenticate($authenticator);
             $this->cluster->openBucket($this->bucket);
         }
     }
@@ -118,7 +131,7 @@ class SimpleCouchbase {
 
         }
     }
-    
+
     public function delDocument($key)
     {
         try {
