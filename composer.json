@@ -1,5 +1,5 @@
 {
-  "name": "dvpablo/php-picnic",
+  "name": "cornerjob/php-picnic",
   "description": "Picnic (Simple) PHP libraries to connect to persistent layers like Cassandra, Couchbase, Couchdb, Mongo, ElasticSearch, Kinesis, Mysql and AWS S3.",
   "version": "0.3.0",
   "authors": [
